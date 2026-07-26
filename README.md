@@ -53,7 +53,7 @@ Edit `index.html` to customize:
 | Intro heading | `hey you` |
 | Intro sub-text | `sweet asian chick` |
 | Gallery title | `see your self` |
-| Gallery subtitle | `and keep you standards high` |
+| Gallery subtitle | `and keep your standards high` |
 | Message heading | `Wishing You the Happiest Birthday!` |
 | Message body | The paragraphs below the heading |
 | Signature | `Your family & friends` |
