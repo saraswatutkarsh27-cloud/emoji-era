@@ -21,13 +21,28 @@ function enterSite() {
 const track = document.getElementById('gallery-track');
 const gallery = document.getElementById('gallery');
 const totalImages = 22;
+let loadedCount = 0;
 
 for (let i = 1; i <= totalImages; i++) {
     const img = document.createElement('img');
-    img.src = `images/${i}.png`;
+    img.src = `pngs/${i}.png`;
     img.alt = `Memory ${i}`;
     img.loading = 'lazy';
     img.draggable = false;
+
+    img.addEventListener('load', () => {
+        img.classList.add('loaded');
+        loadedCount++;
+        if (loadedCount <= 4) {
+            setGalleryHeight();
+        }
+    });
+
+    img.addEventListener('error', () => {
+        img.classList.add('error');
+        img.alt = '';
+    });
+
     track.appendChild(img);
 }
 
@@ -40,6 +55,8 @@ function setGalleryHeight() {
 
 setGalleryHeight();
 window.addEventListener('resize', setGalleryHeight);
+
+let ticking = false;
 
 function updateHorizontalScroll() {
     const rect = gallery.getBoundingClientRect();
@@ -55,12 +72,20 @@ function updateHorizontalScroll() {
     track.style.transform = `translateX(${-progress * maxTranslate}px)`;
 }
 
-window.addEventListener('scroll', updateHorizontalScroll);
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            updateHorizontalScroll();
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
 
 function updateImageFocus() {
     const trackRect = track.getBoundingClientRect();
     const centerX = trackRect.left + trackRect.width / 2;
-    const images = track.querySelectorAll('img');
+    const images = track.querySelectorAll('img.loaded');
 
     images.forEach((img) => {
         const imgRect = img.getBoundingClientRect();
@@ -83,13 +108,13 @@ function updateImageFocus() {
 let focusTimeout;
 window.addEventListener('scroll', () => {
     clearTimeout(focusTimeout);
-    focusTimeout = setTimeout(updateImageFocus, 50);
+    focusTimeout = setTimeout(updateImageFocus, 30);
 });
 
 updateImageFocus();
 
 track.addEventListener('mousemove', (e) => {
-    const images = track.querySelectorAll('img');
+    const images = track.querySelectorAll('img.loaded');
     const maxDist = 160;
 
     images.forEach((img) => {
@@ -117,7 +142,7 @@ track.addEventListener('mouseleave', () => {
 
 track.addEventListener('touchmove', (e) => {
     const touch = e.touches[0];
-    const images = track.querySelectorAll('img');
+    const images = track.querySelectorAll('img.loaded');
     const maxDist = 160;
 
     images.forEach((img) => {
@@ -143,6 +168,18 @@ track.addEventListener('touchend', () => {
     setTimeout(updateImageFocus, 150);
 });
 
+const messageContent = document.querySelector('.message-content');
+if (messageContent) {
+    const messageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.2 });
+    messageObserver.observe(messageContent);
+}
+
 const canvas = document.getElementById('confetti-canvas');
 const ctx = canvas.getContext('2d');
 let confettiPieces = [];
@@ -165,7 +202,8 @@ class ConfettiPiece {
         this.vy = Math.random() * 3 + 2;
         this.rotation = Math.random() * 360;
         this.rotationSpeed = (Math.random() - 0.5) * 10;
-        this.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+        const colors = ['#ff69b4', '#e91e63', '#c2185b', '#ff4081', '#f48fb1', '#ffd54f', '#ff8a65', '#ce93d8'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
         this.opacity = 1;
         this.fadeSpeed = Math.random() * 0.008 + 0.003;
     }
@@ -199,10 +237,12 @@ function triggerConfetti() {
     }
 
     const btn = document.getElementById('celebrate-btn');
-    btn.textContent = '🎉 Happy Birthday! 🎉';
+    btn.textContent = 'Happy Birthday!';
+    btn.style.pointerEvents = 'none';
     setTimeout(() => {
         btn.textContent = 'Celebrate!';
-    }, 2000);
+        btn.style.pointerEvents = '';
+    }, 2500);
 }
 
 function animateConfetti() {

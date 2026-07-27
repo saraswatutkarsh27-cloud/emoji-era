@@ -6,6 +6,11 @@
 
 html {
     scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
 }
 
 body {
@@ -13,6 +18,8 @@ body {
     overflow-x: hidden;
     background: #fff5f7;
     color: #4a0e1a;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
 }
 
 #intro-overlay {
@@ -26,7 +33,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 10000;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #intro-overlay.hidden {
@@ -69,15 +76,35 @@ body {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: fadeInUp 1.2s ease-out 0.6s both;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 1.2s ease-out 0.6s both, pulse 2s ease-in-out 2s infinite;
     box-shadow: 0 4px 25px rgba(233,30,99,0.3);
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+#intro-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+#intro-btn:hover::after {
+    width: 300px;
+    height: 300px;
 }
 
 #intro-btn:hover {
     transform: scale(1.08);
-    box-shadow: 0 8px 35px rgba(233,30,99,0.4);
+    box-shadow: 0 8px 35px rgba(233,30,99,0.45);
 }
 
 #intro-btn:active {
@@ -107,7 +134,7 @@ body {
 .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255,182,193,0.35) 0%, rgba(255,240,245,0.5) 50%, rgba(255,182,193,0.3) 100%);
+    background: linear-gradient(135deg, rgba(255,182,193,0.4) 0%, rgba(255,240,245,0.55) 50%, rgba(255,182,193,0.35) 100%);
     z-index: 1;
 }
 
@@ -124,7 +151,7 @@ body {
     font-weight: 700;
     font-style: italic;
     color: #c2185b;
-    animation: fadeInUp 1.5s ease-out;
+    animation: fadeInUp 1.5s ease-out, textGlow 3s ease-in-out 1.5s infinite alternate;
     letter-spacing: 1px;
     text-shadow: 0 2px 20px rgba(194,24,91,0.15);
 }
@@ -148,15 +175,35 @@ body {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     animation: fadeInUp 1.5s ease-out 0.6s both;
     -webkit-tap-highlight-color: transparent;
     box-shadow: 0 4px 20px rgba(233,30,99,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+#celebrate-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+#celebrate-btn:hover::after {
+    width: 300px;
+    height: 300px;
 }
 
 #celebrate-btn:hover {
     transform: scale(1.08);
-    box-shadow: 0 8px 30px rgba(233,30,99,0.4);
+    box-shadow: 0 8px 30px rgba(233,30,99,0.45);
 }
 
 #celebrate-btn:active {
@@ -172,13 +219,28 @@ body {
     cursor: pointer;
     animation: bounce 2s infinite;
     color: #e91e63;
-    font-size: 2rem;
-    opacity: 0.5;
-    transition: opacity 0.3s;
+    font-size: 1.8rem;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .scroll-indicator:hover {
     opacity: 1;
+}
+
+.scroll-indicator svg {
+    width: 28px;
+    height: 28px;
+    stroke: #e91e63;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 #gallery {
@@ -230,15 +292,29 @@ body {
 .gallery-track img {
     height: 100%;
     max-height: 500px;
+    width: auto;
+    min-width: 200px;
     border-radius: 20px;
     object-fit: cover;
     flex-shrink: 0;
-    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease, box-shadow 0.25s ease;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     border: 3px solid rgba(233,30,99,0.2);
     box-shadow: 0 8px 30px rgba(233,30,99,0.12);
+    background: rgba(233,30,99,0.06);
+    opacity: 0;
+}
+
+.gallery-track img.loaded {
+    opacity: 1;
+}
+
+.gallery-track img.error {
+    opacity: 0.3;
+    border-color: rgba(233,30,99,0.1);
+    background: rgba(233,30,99,0.04);
 }
 
 #message {
@@ -249,6 +325,17 @@ body {
     background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
     padding: 4rem 2rem;
     text-align: center;
+}
+
+.message-content {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.message-content.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .message-content h2 {
@@ -308,6 +395,16 @@ footer .heart {
     60% { transform: scale(1); }
 }
 
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 25px rgba(233,30,99,0.3); }
+    50% { box-shadow: 0 4px 35px rgba(233,30,99,0.55); }
+}
+
+@keyframes textGlow {
+    from { text-shadow: 0 2px 20px rgba(194,24,91,0.15); }
+    to { text-shadow: 0 2px 30px rgba(194,24,91,0.3), 0 0 60px rgba(233,30,99,0.1); }
+}
+
 #music-btn {
     position: fixed;
     bottom: 2rem;
@@ -322,14 +419,14 @@ footer .heart {
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(233,30,99,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-tap-highlight-color: transparent;
     line-height: 1;
 }
 
 #music-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(233,30,99,0.4);
+    box-shadow: 0 6px 25px rgba(233,30,99,0.45);
 }
 
 #music-btn:active {
@@ -389,6 +486,14 @@ footer .heart {
     .section-title {
         padding: 1rem 1rem 0.5rem;
     }
+
+    #music-btn {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -400,5 +505,6 @@ footer .heart {
 
     .gallery-track img {
         max-height: 250px;
+        min-width: 140px;
     }
 }
