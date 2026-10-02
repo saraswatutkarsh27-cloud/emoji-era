@@ -1,469 +1,987 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Chatpatii Baddie ✦</title>
+    <title>Chatpatii Baddie ✦</title>
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&display=swap');
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&display=swap');
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background: #8f1116;
-        color: white;
-        font-family: Arial, sans-serif;
-        overflow-x: hidden;
-    }
-
-    /* Grain */
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        opacity: 0.09;
-        z-index: 100;
-        background-image:
-            url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-    }
-
-    /* Intro screen */
-    #intro {
-        position: fixed;
-        inset: 0;
-        background: #8f1116;
-        z-index: 999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: opacity 0.7s ease, visibility 0.7s ease;
-    }
-
-    #intro.hide {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .intro-content {
-        text-align: center;
-        transform: rotate(-3deg);
-    }
-
-    .intro-content h1 {
-        font-family: "Permanent Marker", cursive;
-        font-size: clamp(4rem, 15vw, 10rem);
-        line-height: .8;
-        color: white;
-        text-shadow:
-            9px 9px 0 #050505,
-            15px 15px 0 #ff5a00;
-    }
-
-    .intro-content p {
-        margin-top: 45px;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 1.5rem;
-        letter-spacing: 5px;
-        color: #ffb000;
-        animation: pulse 1.4s infinite;
-    }
-
-    @keyframes pulse {
-        50% {
-            opacity: .45;
-            transform: scale(.97);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
 
-    /* Main */
-    main {
-        width: min(1200px, 94%);
-        margin: auto;
-        padding-bottom: 100px;
-    }
-
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-    }
-
-    .hero-title {
-        position: relative;
-        z-index: 2;
-        transform: rotate(-3deg);
-        padding: 30px 0;
-    }
-
-    .small-title {
-        font-family: "Bebas Neue", sans-serif;
-        color: #ffb000;
-        font-size: clamp(2rem, 5vw, 4rem);
-        letter-spacing: 8px;
-        margin-left: 8%;
-        text-shadow: 5px 5px #000;
-    }
-
-    .big-title {
-        font-family: "Permanent Marker", cursive;
-        font-size: clamp(5rem, 16vw, 13rem);
-        line-height: .75;
-        color: #f5f5f5;
-        text-shadow:
-            10px 10px #000,
-            17px 17px #ff5100;
-        letter-spacing: -7px;
-    }
-
-    .subtitle {
-        margin-top: 45px;
-        margin-left: 12%;
-        font-family: "Permanent Marker", cursive;
-        color: #ff4b00;
-        font-size: clamp(2.5rem, 7vw, 6rem);
-        transform: rotate(2deg);
-        text-shadow: 7px 7px #000;
-    }
-
-    .sticker {
-        position: absolute;
-        right: 4%;
-        top: 15%;
-        width: 120px;
-        height: 120px;
-        border: 7px solid #000;
-        background: #ffb000;
-        color: #000;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 1.4rem;
-        text-align: center;
-        transform: rotate(12deg);
-        box-shadow: 8px 8px #ff4500;
-    }
-
-    /* Marquee */
-    .marquee {
-        overflow: hidden;
-        background: #050505;
-        border-top: 5px solid #ffb000;
-        border-bottom: 5px solid #ffb000;
-        transform: rotate(-1deg);
-        margin: 40px 0 90px;
-    }
-
-    .marquee-track {
-        display: flex;
-        width: max-content;
-        animation: marquee 18s linear infinite;
-    }
-
-    .marquee span {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2rem;
-        letter-spacing: 4px;
-        padding: 10px 30px;
-        color: #ffb000;
-    }
-
-    @keyframes marquee {
-        to {
-            transform: translateX(-50%);
+        html {
+            scroll-behavior: smooth;
         }
-    }
 
-    /* Video */
-    .section-title {
-        font-family: "Permanent Marker", cursive;
-        font-size: clamp(3rem, 8vw, 6rem);
-        text-shadow: 7px 7px #000;
-        transform: rotate(-2deg);
-        margin-bottom: 30px;
-    }
-
-    .section-title span {
-        color: #ffb000;
-    }
-
-    .video-wrap {
-        background: #050505;
-        padding: 12px;
-        border: 5px solid #050505;
-        transform: rotate(1deg);
-        box-shadow: 15px 15px #ff4b00;
-    }
-
-    video {
-        width: 100%;
-        max-height: 650px;
-        display: block;
-        object-fit: cover;
-        background: #111;
-    }
-
-    /* Gallery */
-    .gallery-section {
-        margin-top: 130px;
-    }
-
-    .gallery {
-        columns: 4 180px;
-        column-gap: 18px;
-    }
-
-    .photo {
-        break-inside: avoid;
-        margin-bottom: 18px;
-        position: relative;
-        border: 5px solid #050505;
-        background: white;
-        padding: 7px;
-        box-shadow: 8px 8px #ff5100;
-        transition: .25s ease;
-    }
-
-    .photo:nth-child(3n) {
-        transform: rotate(2deg);
-    }
-
-    .photo:nth-child(3n + 1) {
-        transform: rotate(-2deg);
-    }
-
-    .photo:hover {
-        transform: scale(1.05) rotate(0deg);
-        z-index: 10;
-        box-shadow: 12px 12px #ffb000;
-    }
-
-    .photo img {
-        width: 100%;
-        display: block;
-    }
-
-    /* Footer */
-    footer {
-        text-align: center;
-        padding: 100px 20px 30px;
-    }
-
-    footer h2 {
-        font-family: "Permanent Marker", cursive;
-        font-size: clamp(3rem, 9vw, 7rem);
-        color: #ffb000;
-        text-shadow: 8px 8px #000;
-        transform: rotate(-3deg);
-    }
-
-    footer p {
-        margin-top: 25px;
-        font-family: "Bebas Neue", sans-serif;
-        letter-spacing: 4px;
-        font-size: 1.3rem;
-    }
-
-    /* Floating decorations */
-    .star {
-        position: absolute;
-        color: #ffb000;
-        font-size: 3rem;
-        text-shadow: 5px 5px #000;
-        animation: float 3s ease-in-out infinite;
-    }
-
-    .star.one {
-        left: 2%;
-        top: 30%;
-    }
-
-    .star.two {
-        right: 20%;
-        bottom: 12%;
-        animation-delay: .8s;
-    }
-
-    @keyframes float {
-        50% {
-            transform: translateY(-15px) rotate(15deg);
+        body {
+            background: #8f1116;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
         }
-    }
 
-    @media (max-width: 700px) {
+        /* =========================
+           GRAIN EFFECT
+        ========================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.08;
+            z-index: 100;
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+        }
+
+        /* =========================
+           INTRO SCREEN
+        ========================= */
+
+        #intro {
+            position: fixed;
+            inset: 0;
+            background: #8f1116;
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition:
+                opacity 0.7s ease,
+                visibility 0.7s ease;
+        }
+
+        #intro.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .intro-content {
+            text-align: center;
+            transform: rotate(-3deg);
+            padding: 20px;
+        }
+
+        .intro-content h1 {
+            font-family: "Permanent Marker", cursive;
+            font-size: clamp(4rem, 15vw, 10rem);
+            line-height: .8;
+            color: white;
+
+            text-shadow:
+                9px 9px 0 #050505,
+                15px 15px 0 #ff5a00;
+        }
+
+        .intro-content p {
+            margin-top: 50px;
+
+            font-family: "Bebas Neue", sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+
+            color: #ffb000;
+
+            animation: pulse 1.4s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .4;
+                transform: scale(.97);
+            }
+        }
+
+        /* =========================
+           MUSIC BUTTON
+        ========================= */
+
+        #musicButton {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+
+            z-index: 1000;
+
+            border: 4px solid #000;
+
+            background: #ffb000;
+            color: #000;
+
+            padding: 13px 20px;
+
+            font-family: "Bebas Neue", sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+
+            cursor: pointer;
+
+            box-shadow: 6px 6px #000;
+
+            transform: rotate(-2deg);
+
+            transition: .2s ease;
+        }
+
+        #musicButton:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        #musicButton.playing {
+            background: #ff5100;
+            color: white;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            width: min(1200px, 94%);
+            margin: auto;
+            padding-bottom: 100px;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .hero-title {
+            position: relative;
+            z-index: 2;
+
+            transform: rotate(-3deg);
+
+            padding: 30px 0;
+        }
+
+        .small-title {
+            font-family: "Bebas Neue", sans-serif;
+
+            color: #ffb000;
+
+            font-size: clamp(2rem, 5vw, 4rem);
+
+            letter-spacing: 8px;
+
+            margin-left: 8%;
+
+            text-shadow: 5px 5px #000;
+        }
+
         .big-title {
-            font-size: 5rem;
+            font-family: "Permanent Marker", cursive;
+
+            font-size: clamp(5rem, 16vw, 13rem);
+
+            line-height: .75;
+
+            color: #f5f5f5;
+
+            text-shadow:
+                10px 10px #000,
+                17px 17px #ff5100;
+
+            letter-spacing: -7px;
         }
 
         .subtitle {
-            font-size: 3rem;
-            margin-left: 5%;
+            margin-top: 45px;
+            margin-left: 12%;
+
+            font-family: "Permanent Marker", cursive;
+
+            color: #ff4b00;
+
+            font-size: clamp(2.5rem, 7vw, 6rem);
+
+            transform: rotate(2deg);
+
+            text-shadow: 7px 7px #000;
         }
 
+        /* =========================
+           STICKER
+        ========================= */
+
         .sticker {
-            width: 85px;
-            height: 85px;
-            font-size: 1rem;
+            position: absolute;
+
+            right: 4%;
+            top: 15%;
+
+            width: 120px;
+            height: 120px;
+
+            border: 7px solid #000;
+
+            background: #ffb000;
+            color: #000;
+
+            border-radius: 50%;
+
+            display: grid;
+            place-items: center;
+
+            font-family: "Bebas Neue", sans-serif;
+
+            font-size: 1.4rem;
+
+            text-align: center;
+
+            transform: rotate(12deg);
+
+            box-shadow: 8px 8px #ff4500;
+        }
+
+        /* =========================
+           FLOATING STARS
+        ========================= */
+
+        .star {
+            position: absolute;
+
+            color: #ffb000;
+
+            font-size: 3rem;
+
+            text-shadow: 5px 5px #000;
+
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .star.one {
+            left: 2%;
+            top: 30%;
+        }
+
+        .star.two {
+            right: 20%;
+            bottom: 12%;
+
+            animation-delay: .8s;
+        }
+
+        @keyframes float {
+            50% {
+                transform:
+                    translateY(-15px)
+                    rotate(15deg);
+            }
+        }
+
+        /* =========================
+           MARQUEE
+        ========================= */
+
+        .marquee {
+            overflow: hidden;
+
+            background: #050505;
+
+            border-top: 5px solid #ffb000;
+            border-bottom: 5px solid #ffb000;
+
+            transform: rotate(-1deg);
+
+            margin: 40px 0 90px;
+        }
+
+        .marquee-track {
+            display: flex;
+
+            width: max-content;
+
+            animation:
+                marquee 18s linear infinite;
+        }
+
+        .marquee span {
+            font-family: "Bebas Neue", sans-serif;
+
+            font-size: 2rem;
+
+            letter-spacing: 4px;
+
+            padding: 10px 30px;
+
+            color: #ffb000;
+
+            white-space: nowrap;
+        }
+
+        @keyframes marquee {
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* =========================
+           SECTION TITLES
+        ========================= */
+
+        .section-title {
+            font-family: "Permanent Marker", cursive;
+
+            font-size: clamp(3rem, 8vw, 6rem);
+
+            text-shadow: 7px 7px #000;
+
+            transform: rotate(-2deg);
+
+            margin-bottom: 30px;
+        }
+
+        .section-title span {
+            color: #ffb000;
+        }
+
+        /* =========================
+           VIDEO
+        ========================= */
+
+        .video-wrap {
+            background: #050505;
+
+            padding: 12px;
+
+            border: 5px solid #050505;
+
+            transform: rotate(1deg);
+
+            box-shadow: 15px 15px #ff4b00;
+        }
+
+        video {
+            width: 100%;
+
+            max-height: 650px;
+
+            display: block;
+
+            object-fit: cover;
+
+            background: #111;
+        }
+
+        /* =========================
+           GALLERY
+        ========================= */
+
+        .gallery-section {
+            margin-top: 130px;
         }
 
         .gallery {
-            columns: 2 140px;
+            columns: 4 180px;
+
+            column-gap: 18px;
         }
-    }
-</style>
+
+        .photo {
+            break-inside: avoid;
+
+            margin-bottom: 18px;
+
+            position: relative;
+
+            border: 5px solid #050505;
+
+            background: white;
+
+            padding: 7px;
+
+            box-shadow: 8px 8px #ff5100;
+
+            transition: .25s ease;
+        }
+
+        .photo:nth-child(3n) {
+            transform: rotate(2deg);
+        }
+
+        .photo:nth-child(3n + 1) {
+            transform: rotate(-2deg);
+        }
+
+        .photo:hover {
+            transform:
+                scale(1.05)
+                rotate(0deg);
+
+            z-index: 10;
+
+            box-shadow: 12px 12px #ffb000;
+        }
+
+        .photo img {
+            width: 100%;
+            height: auto;
+
+            display: block;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding:
+                100px
+                20px
+                30px;
+        }
+
+        footer h2 {
+            font-family: "Permanent Marker", cursive;
+
+            font-size: clamp(3rem, 9vw, 7rem);
+
+            color: #ffb000;
+
+            text-shadow: 8px 8px #000;
+
+            transform: rotate(-3deg);
+        }
+
+        footer p {
+            margin-top: 25px;
+
+            font-family: "Bebas Neue", sans-serif;
+
+            letter-spacing: 4px;
+
+            font-size: 1.3rem;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .big-title {
+                font-size: 5rem;
+            }
+
+            .subtitle {
+                font-size: 3rem;
+                margin-left: 5%;
+            }
+
+            .sticker {
+                width: 85px;
+                height: 85px;
+
+                font-size: 1rem;
+
+                border-width: 5px;
+            }
+
+            .gallery {
+                columns: 2 140px;
+            }
+
+            .small-title {
+                font-size: 1.7rem;
+            }
+
+            #musicButton {
+                right: 12px;
+                bottom: 12px;
+
+                padding: 10px 15px;
+
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .big-title {
+                font-size: 4.2rem;
+            }
+
+            .subtitle {
+                font-size: 2.4rem;
+            }
+
+            .gallery {
+                columns: 2 120px;
+                column-gap: 12px;
+            }
+
+            .photo {
+                margin-bottom: 14px;
+                padding: 5px;
+                border-width: 3px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Click once to start music -->
-<div id="intro">
-    <div class="intro-content">
-        <h1>CHATPATII<br>BADDIE</h1>
-        <p>✦ TAP TO ENTER ✦</p>
-    </div>
-</div>
+    <!-- =========================================
+         INTRO SCREEN
+    ========================================== -->
 
-<!-- Background music -->
-<audio id="music" loop>
-    <source src="song.mp3" type="audio/mpeg">
-</audio>
+    <div id="intro">
 
-<main>
+        <div class="intro-content">
 
-    <!-- HERO -->
-    <section class="hero">
+            <h1>
+                CHATPATII<br>
+                BADDIE
+            </h1>
 
-        <div class="star one">✦</div>
-        <div class="star two">★</div>
+            <p>
+                ✦ TAP TO ENTER ✦
+            </p>
 
-        <div class="sticker">
-            MAIN<br>
-            CHARACTER<br>
-            ✦
         </div>
 
-        <div class="hero-title">
-            <div class="small-title">THE ONE & ONLY</div>
-
-            <div class="big-title">
-                Baddie
-            </div>
-
-            <div class="subtitle">
-                ✦ Chatpatii ✦
-            </div>
-        </div>
-
-    </section>
-
-    <!-- MARQUEE -->
-    <div class="marquee">
-        <div class="marquee-track">
-            <span>CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦</span>
-            <span>CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦</span>
-            <span>CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦</span>
-            <span>CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦</span>
-        </div>
     </div>
 
-    <!-- VIDEO -->
-    <section>
-        <h2 class="section-title">
-            <span>★</span> HER MOMENTS
-        </h2>
 
-        <div class="video-wrap">
-            <video
-                src="video.mp4"
-                controls
-                playsinline
-                preload="metadata">
-            </video>
+    <!-- =========================================
+         BACKGROUND MUSIC
+    ========================================== -->
+
+    <audio
+        id="bgMusic"
+        loop
+        preload="auto"
+    >
+        <source
+            src="./song.mp3"
+            type="audio/mpeg"
+        >
+
+        Your browser does not support audio.
+    </audio>
+
+
+    <!-- MUSIC CONTROL -->
+
+    <button
+        id="musicButton"
+        type="button"
+    >
+        ♫ MUSIC OFF
+    </button>
+
+
+    <!-- =========================================
+         MAIN WEBSITE
+    ========================================== -->
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="star one">
+                ✦
+            </div>
+
+            <div class="star two">
+                ★
+            </div>
+
+
+            <div class="sticker">
+                MAIN<br>
+                CHARACTER<br>
+                ✦
+            </div>
+
+
+            <div class="hero-title">
+
+                <div class="small-title">
+                    THE ONE & ONLY
+                </div>
+
+
+                <div class="big-title">
+                    Baddie
+                </div>
+
+
+                <div class="subtitle">
+                    ✦ Chatpatii ✦
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             MARQUEE
+        ========================================== -->
+
+        <div class="marquee">
+
+            <div class="marquee-track">
+
+                <span>
+                    CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦
+                </span>
+
+                <span>
+                    CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦
+                </span>
+
+                <span>
+                    CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦
+                </span>
+
+                <span>
+                    CHATPATII ✦ BADDIE ✦ ICONIC ✦ DESI VIBES ✦
+                </span>
+
+            </div>
+
         </div>
-    </section>
 
-    <!-- PHOTO GALLERY -->
-    <section class="gallery-section">
 
-        <h2 class="section-title">
-            PHOTO <span>DUMP</span>
-        </h2>
+        <!-- =========================================
+             VIDEO
+        ========================================== -->
 
-        <div class="gallery">
+        <section>
 
-            <div class="photo"><img src="pngs/1.png" alt="Photo 1"></div>
-            <div class="photo"><img src="pngs/2.png" alt="Photo 2"></div>
-            <div class="photo"><img src="pngs/3.png" alt="Photo 3"></div>
-            <div class="photo"><img src="pngs/4.png" alt="Photo 4"></div>
-            <div class="photo"><img src="pngs/5.png" alt="Photo 5"></div>
-            <div class="photo"><img src="pngs/6.png" alt="Photo 6"></div>
-            <div class="photo"><img src="pngs/7.png" alt="Photo 7"></div>
-            <div class="photo"><img src="pngs/8.png" alt="Photo 8"></div>
-            <div class="photo"><img src="pngs/9.png" alt="Photo 9"></div>
-            <div class="photo"><img src="pngs/10.png" alt="Photo 10"></div>
-            <div class="photo"><img src="pngs/11.png" alt="Photo 11"></div>
-            <div class="photo"><img src="pngs/12.png" alt="Photo 12"></div>
-            <div class="photo"><img src="pngs/13.png" alt="Photo 13"></div>
-            <div class="photo"><img src="pngs/14.png" alt="Photo 14"></div>
-            <div class="photo"><img src="pngs/15.png" alt="Photo 15"></div>
-            <div class="photo"><img src="pngs/16.png" alt="Photo 16"></div>
-            <div class="photo"><img src="pngs/17.png" alt="Photo 17"></div>
-            <div class="photo"><img src="pngs/18.png" alt="Photo 18"></div>
-            <div class="photo"><img src="pngs/19.png" alt="Photo 19"></div>
-            <div class="photo"><img src="pngs/20.png" alt="Photo 20"></div>
-            <div class="photo"><img src="pngs/21.png" alt="Photo 21"></div>
-            <div class="photo"><img src="pngs/22.png" alt="Photo 22"></div>
+            <h2 class="section-title">
+                <span>★</span>
+                HER MOMENTS
+            </h2>
 
-        </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <h2>CHATPATII<br>BADDIE ✦</h2>
-        <p>made with ✦ attitude ✦</p>
-    </footer>
+            <div class="video-wrap">
 
-</main>
+                <video
+                    src="./video.mp4"
+                    controls
+                    playsinline
+                    preload="metadata"
+                >
+                    Your browser does not support video.
+                </video>
 
-<script>
-    const intro = document.getElementById("intro");
-    const music = document.getElementById("music");
+            </div>
 
-    // Browsers usually block audio autoplay.
-    // The first click starts the music.
-    intro.addEventListener("click", async () => {
-        try {
-            music.volume = 0.45;
-            await music.play();
-        } catch (error) {
-            console.log("Music needs another user interaction.");
+        </section>
+
+
+        <!-- =========================================
+             PHOTO GALLERY
+        ========================================== -->
+
+        <section class="gallery-section">
+
+            <h2 class="section-title">
+                PHOTO <span>DUMP</span>
+            </h2>
+
+
+            <div class="gallery">
+
+                <div class="photo">
+                    <img src="./pngs/1.png" alt="Photo 1">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/2.png" alt="Photo 2">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/3.png" alt="Photo 3">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/4.png" alt="Photo 4">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/5.png" alt="Photo 5">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/6.png" alt="Photo 6">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/7.png" alt="Photo 7">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/8.png" alt="Photo 8">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/9.png" alt="Photo 9">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/10.png" alt="Photo 10">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/11.png" alt="Photo 11">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/12.png" alt="Photo 12">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/13.png" alt="Photo 13">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/14.png" alt="Photo 14">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/15.png" alt="Photo 15">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/16.png" alt="Photo 16">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/17.png" alt="Photo 17">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/18.png" alt="Photo 18">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/19.png" alt="Photo 19">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/20.png" alt="Photo 20">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/21.png" alt="Photo 21">
+                </div>
+
+                <div class="photo">
+                    <img src="./pngs/22.png" alt="Photo 22">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer>
+
+            <h2>
+                CHATPATII<br>
+                BADDIE ✦
+            </h2>
+
+            <p>
+                made with ✦ attitude ✦
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        const intro =
+            document.getElementById("intro");
+
+        const music =
+            document.getElementById("bgMusic");
+
+        const musicButton =
+            document.getElementById("musicButton");
+
+
+        /* Music volume */
+
+        music.volume = 0.5;
+
+
+        /* =========================================
+           START MUSIC
+        ========================================== */
+
+        async function startMusic() {
+
+            try {
+
+                await music.play();
+
+                musicButton.textContent =
+                    "♫ MUSIC ON";
+
+                musicButton.classList.add(
+                    "playing"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Could not play song.mp3:",
+                    error
+                );
+
+                musicButton.textContent =
+                    "♫ TAP FOR MUSIC";
+
+            }
+
         }
 
-        intro.classList.add("hide");
-    });
 
-    // Also allow clicking anywhere if the browser stopped the audio.
-    document.addEventListener("click", () => {
-        if (music.paused) {
-            music.volume = 0.45;
-            music.play().catch(() => {});
-        }
-    }, { once: true });
-</script>
+        /* =========================================
+           INTRO CLICK
+        ========================================== */
+
+        intro.addEventListener(
+            "click",
+            async function () {
+
+                await startMusic();
+
+                intro.classList.add(
+                    "hide"
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           MUSIC BUTTON
+        ========================================== */
+
+        musicButton.addEventListener(
+            "click",
+            async function (event) {
+
+                event.stopPropagation();
+
+
+                if (music.paused) {
+
+                    await startMusic();
+
+                } else {
+
+                    music.pause();
+
+                    musicButton.textContent =
+                        "♫ MUSIC OFF";
+
+                    musicButton.classList.remove(
+                        "playing"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           MUSIC EVENTS
+        ========================================== */
+
+        music.addEventListener(
+            "play",
+            function () {
+
+                musicButton.textContent =
+                    "♫ MUSIC ON";
+
+                musicButton.classList.add(
+                    "playing"
+                );
+
+            }
+        );
+
+
+        music.addEventListener(
+            "pause",
+            function () {
+
+                musicButton.textContent =
+                    "♫ MUSIC OFF";
+
+                musicButton.classList.remove(
+                    "playing"
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           AUDIO ERROR CHECK
+        ========================================== */
+
+        music.addEventListener(
+            "error",
+            function () {
+
+                musicButton.textContent =
+                    "♫ SONG NOT FOUND";
+
+                console.error(
+                    "song.mp3 could not be loaded."
+                );
+
+            }
+        );
+
+    </script>
 
 </body>
 </html>
